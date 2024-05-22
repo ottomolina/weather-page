@@ -1,0 +1,26 @@
+
+.parent-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    background-color: #FFF;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: arial;
+    color: #2596be;
+    padding-left: 20px;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.note {
+    font-weight: 700;
+}
