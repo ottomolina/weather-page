@@ -16,9 +16,18 @@ export class AppComponent {
     private ipLocationService: IpLocationService,
     private sessionStorage: SessionstorageService
   ) {
-    firstValueFrom(this.ipLocationService.getIpAddress()).then((response: IpExternal) => {
-      this.sessionStorage.ipAddressExternal = response.ip;
-    })
+    this.getCountryFromIp();
+  }
+
+  public async getCountryFromIp() {
+    try {
+      const ipObject = await firstValueFrom(this.ipLocationService.getIpAddress())
+      this.sessionStorage.ipAddressExternal = ipObject.ip;
+      const countryObject = await firstValueFrom(this.ipLocationService.getCountryFromIpAddress(ipObject.ip));
+      this.sessionStorage.countryIpAddressExternal = countryObject.country;
+    } catch(error) {
+      console.error('error', error);
+    }
   }
 
 }

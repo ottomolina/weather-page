@@ -16,5 +16,14 @@ export class SessionstorageService {
   set ipAddressExternal(ip: string) {
     sessionStorage.setItem(SESSIONCONSTANTS.KEY_IP, ip);
   }
+  
+  get countryIpAddressExternal() {
+    const country = sessionStorage.getItem(SESSIONCONSTANTS.KEY_COUNTRY);
+    return country ? country : '';
+  }
+
+  set countryIpAddressExternal(ip: string) {
+    sessionStorage.setItem(SESSIONCONSTANTS.KEY_COUNTRY, ip);
+  }
 
 }

@@ -1,3 +1,4 @@
 export const environment = {
-    urlDetectIp: 'https://ipv4.myexternalip.com/json'
+    urlDetectIp: 'https://ipv4.myexternalip.com/json',
+    urlCountryIpAddress: 'http://ip-api.com/json/',
 };
