@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class IpLocationService {
+export class LocationService {
 
   constructor(
     private http: HttpClient

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IpLocationService } from './services/ip-location/ip-location.service';
+import { LocationService } from './services/location/location.service';
 import { firstValueFrom } from 'rxjs';
 import { IpExternal } from './models/ip-external.model';
 import { SessionstorageService } from './services/storage/sessionstorage.service';
@@ -13,7 +13,7 @@ export class AppComponent {
   title = 'web-weather';
 
   constructor(
-    private ipLocationService: IpLocationService,
+    private locationService: LocationService,
     private sessionStorage: SessionstorageService
   ) {
     this.getCountryFromIp();
@@ -21,9 +21,9 @@ export class AppComponent {
 
   public async getCountryFromIp() {
     try {
-      const ipObject = await firstValueFrom(this.ipLocationService.getIpAddress())
+      const ipObject = await firstValueFrom(this.locationService.getIpAddress())
       this.sessionStorage.ipAddressExternal = ipObject.ip;
-      const countryObject = await firstValueFrom(this.ipLocationService.getCountryFromIpAddress(ipObject.ip));
+      const countryObject = await firstValueFrom(this.locationService.getCountryFromIpAddress(ipObject.ip));
       this.sessionStorage.countryIpAddressExternal = countryObject.country;
     } catch(error) {
       console.error('error', error);
