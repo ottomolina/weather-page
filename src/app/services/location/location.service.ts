@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CountryIpAddress } from 'src/app/models/country-ip-address.model';
 import { IpExternal } from 'src/app/models/ip-external.model';
+import { Place } from 'src/app/models/place.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -20,6 +21,12 @@ export class LocationService {
 
   public getCountryFromIpAddress(ip: string): Observable<CountryIpAddress> {
     return this.http.get<CountryIpAddress>(`${environment.urlCountryIpAddress}${ip}`);
+  }
+
+  public getListPlaces(place: string): Observable<Array<Place>> {
+    let url = `${environment.urlPlaces}`;
+    url = url.replace('{place}', encodeURIComponent(place));
+    return this.http.get<Array<Place>>(url);
   }
 
 }
