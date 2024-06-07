@@ -11,10 +11,20 @@
                     class="input-search-place"
                     placeholder="Buscar el tiempo en..."
                     (input)="inputEvent($event)"
+                    (focus)="focusSearch()"
+                    (blur)="blurSearch()"
                     autocomplete="off">
             <div class="container-icon">
                 <i class='bx bx-search-alt-2 icon-search'></i>
             </div>
+        </div>
+        <div class="div-results" [ngClass]="{'result-invisible': !showResult, 'result-visible': showResult}">
+            <ul class="item-result">
+                <li tabindex="2" *ngFor="let item of listPlaces" (click)="clickItemResult(item)">
+                    <span class="location-icon"></span>
+                    <span class="localidad">{{item.display_name}}</span>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
