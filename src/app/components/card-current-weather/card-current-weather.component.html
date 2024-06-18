@@ -1,0 +1,22 @@
+<div class="div-current-weather">
+    <h2>El tiempo en {{citySelected}}</h2>
+    <span class="text-hour-day">{{hour}} | {{dayOfWeek}}</span>
+    <div class="card-current">
+        <span class="text-weather-code">{{currentWeather.weather_code | weatherCode}}</span>
+
+        <div class="card-current-content">
+            <div class="content-izq">
+                <i class="wi wi-day-sunny"></i>
+                <div class="content-izq-text">
+                    <span class="text-current-temperature">{{currentWeather.temperature_2m | formatNumber}}°</span>
+                    <span class="text-apparent-temperature">Sensación de {{currentWeather.apparent_temperature | formatNumber}}°</span>
+                </div>
+            </div>
+            <div class="content-der">
+                <i class="wi wi-umbrella"></i>
+                <span class="text-percent-rain">{{currentWeather.relative_humidity_2m + '' + currentUnits.relative_humidity_2m}}</span>
+                <span class="text-precipitation">{{currentWeather.precipitation}} {{currentUnits.precipitation}}</span>
+            </div>
+        </div>
+    </div>
+</div>

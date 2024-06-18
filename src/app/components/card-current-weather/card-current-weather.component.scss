@@ -1,0 +1,49 @@
+.div-current-weather {
+    width: 400px;
+}
+
+.card-current {
+    padding: 20px;
+    background-color: #5DADE2;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+
+.card-current-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 8px 0;
+}
+
+.content-izq {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.content-izq i {
+    font-size: 35pt;
+}
+
+.content-izq-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-current-temperature {
+    font-size: 40pt;
+    font-weight: normal;
+}
+
+.content-der {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-der i {
+    font-size: 20pt;
+}
