@@ -3,8 +3,11 @@ import { LocationService } from './services/location/location.service';
 import { firstValueFrom } from 'rxjs';
 import { SessionstorageService } from './services/storage/sessionstorage.service';
 import { Place } from './models/place.model';
+import { Weather } from './models/weater.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 const TRIGGER_BUSCAR = 750;
+const nameDays = [ 'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo' ];
 
 @Component({
   selector: 'app-root',
@@ -13,28 +16,42 @@ const TRIGGER_BUSCAR = 750;
 })
 export class AppComponent {
   private refTimeout: any;
-  title = 'web-weather';
   public listPlaces: Array<Place> = [];
+
+  // Variables for div-current-weather
+  public citySelected: string = '';
+  public hour: string = '';
+  public dayOfWeek: string = '';
+  public weather: Weather;
+  public isLoading: boolean = true;
 
   constructor(
     private locationService: LocationService,
-    private sessionStorage: SessionstorageService
+    private sessionStorage: SessionstorageService,
+    private spinner: NgxSpinnerService
   ) {
     this.getCountryFromIp();
   }
 
   public async getCountryFromIp() {
     try {
+      this.spinner.show();
       const ipObject = await firstValueFrom(this.locationService.getIpAddress())
       this.sessionStorage.ipAddressExternal = ipObject.ip;
       const countryObject = await firstValueFrom(this.locationService.getCountryFromIpAddress(ipObject.ip));
       this.sessionStorage.countryIpAddressExternal = countryObject.country;
+
+      await this.searchingProcess(countryObject.country);
+      const place = this.listPlaces.find(e => e.name === countryObject.country);
+      place && await this.selectResult(place);
+      
     } catch(error) {
       console.error('error', error);
+      alert('Ocurrió un inconveniente al realizar esta acción.');
+    } finally {
+      this.spinner.hide();
     }
   }
-
-  name = '';
 
   search(event: any) {
     clearTimeout(this.refTimeout);
@@ -59,7 +76,32 @@ export class AppComponent {
     ]
   }
 
-  public selectResult(item:Place) {
-    console.log('itemSelected', item);
+  public async selectResult(item:Place) {
+    try {
+      this.isLoading = true;
+      this.spinner.show();
+      this.citySelected = item.name;
+      this.hour = this.getHour();
+      this.dayOfWeek = nameDays[new Date().getDay()-1];
+      
+      this.weather = await firstValueFrom(this.locationService.getWeatherByCoords(item.lat, item.lon));
+    } catch(error) {
+      console.error('error', error);
+      alert('Ocurrió un inconveniente al realizar esta acción.');
+    } finally {
+      this.isLoading = false;
+      this.spinner.hide();
+    }
   }
+
+  private getHour() {
+    const date = new Date();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+
+    let ret = hour < 10 ? `0${hour}` : `${hour}`;
+    ret += ':' + (minute < 10 ? `0${minute}` : minute);
+    return ret;
+  }
+
 }
