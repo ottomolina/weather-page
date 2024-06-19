@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { WeatherCodePipe } from './weather-code.pipe';
 import { FormatNumberPipe } from './format-number.pipe';
+import { WeatherCodeIconPipe } from './weather-code-icon.pipe';
 
 @NgModule({
     declarations: [
         WeatherCodePipe,
-        FormatNumberPipe
+        FormatNumberPipe,
+        WeatherCodeIconPipe
     ],
     exports: [
         WeatherCodePipe,
-        FormatNumberPipe
+        FormatNumberPipe,
+        WeatherCodeIconPipe
     ],
 })
 
