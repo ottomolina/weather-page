@@ -6,7 +6,7 @@
 
         <div class="card-current-content">
             <div class="content-izq">
-                <i class="wi wi-day-sunny"></i>
+                <img src="{{currentWeather.weather_code | weatherCodeIcon: currentWeather.is_day}}">
                 <div class="content-izq-text">
                     <span class="text-current-temperature">{{currentWeather.temperature_2m | formatNumber}}°</span>
                     <span class="text-apparent-temperature">Sensación de {{currentWeather.apparent_temperature | formatNumber}}°</span>
