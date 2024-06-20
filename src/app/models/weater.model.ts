@@ -56,6 +56,8 @@ export interface Hourly {
 
 export interface DailyUnits {
   time: string
+  precipitation_sum: string
+  precipitation_probability_max: string
   weather_code: string
   temperature_2m_max: string
   temperature_2m_min: string
@@ -63,6 +65,8 @@ export interface DailyUnits {
 
 export interface Daily {
   time: string[]
+  precipitation_sum: number[]
+  precipitation_probability_max: number[]
   weather_code: number[]
   temperature_2m_max: number[]
   temperature_2m_min: number[]
