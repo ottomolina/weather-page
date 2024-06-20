@@ -5,9 +5,10 @@ import { SessionstorageService } from './services/storage/sessionstorage.service
 import { Place } from './models/place.model';
 import { Weather } from './models/weater.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DailyWeather } from './models/daily-weather.model';
 
 const TRIGGER_BUSCAR = 750;
-const nameDays = [ 'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo' ];
+const nameDays = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
 @Component({
   selector: 'app-root',
@@ -17,6 +18,7 @@ const nameDays = [ 'Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','D
 export class AppComponent {
   private refTimeout: any;
   public listPlaces: Array<Place> = [];
+  public listDailyWeather: Array<DailyWeather> = [];
 
   // Variables for div-current-weather
   public citySelected: string = '';
@@ -78,13 +80,31 @@ export class AppComponent {
 
   public async selectResult(item:Place) {
     try {
+      this.listDailyWeather = [];
       this.isLoading = true;
       this.spinner.show();
       this.citySelected = item.name;
       this.hour = this.getHour();
-      this.dayOfWeek = nameDays[new Date().getDay()-1];
+      this.dayOfWeek = nameDays[new Date().getDay()];
       
       this.weather = await firstValueFrom(this.locationService.getWeatherByCoords(item.lat, item.lon));
+
+      const daily = this.weather.daily;
+      let i = 0;
+      while(i < 7) {
+        const item: DailyWeather = {
+          nameDay: this.getNameDay(daily.time[i]),
+          date: this.getDate(daily.time[i]),
+          precipitation_sum: daily.precipitation_sum[i],
+          precipitation_probability_max: daily.precipitation_probability_max[i],
+          weather_code: daily.weather_code[i],
+          temperature_2m_max: daily.temperature_2m_max[i],
+          temperature_2m_min: daily.temperature_2m_min[i]
+        };
+        this.listDailyWeather.push(item);
+        i++;
+      }
+
     } catch(error) {
       console.error('error', error);
       alert('Ocurrió un inconveniente al realizar esta acción.');
@@ -104,4 +124,29 @@ export class AppComponent {
     return ret;
   }
 
+  private getNameDay(time: string) {
+    if(time === this.getCurrentDate()) {
+      return 'Hoy';
+    }
+    if(time === this.getCurrentDate(1)) {
+      return 'Mañana';
+    }
+    const date = new Date(new Date(time).toLocaleString('en-US',{timeZone:'America/Guatemala'}));
+    return nameDays[date.getDay()];
+  }
+
+  private getDate(time: string) {
+    const date = new Date(`${time}T00:00:00`);
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    return `${day} ${month}`;
+  }
+  
+  public getCurrentDate(sumDay: number = 0): string {
+    const date = new Date(new Date().toLocaleString('en-US', {timeZone: 'America/Guatemala'}));
+    const day = `${date.getDate()+sumDay}`.padStart(2, '0');
+    const month = date.getMonth() < 9 ? `0${date.getMonth()+1}` : `${date.getMonth()+1}`;
+    const year = `${date.getFullYear()}`;
+    return `${year}-${month}-${day}`;
+  }
 }

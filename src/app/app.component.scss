@@ -4,3 +4,12 @@
     flex-direction: column;
     align-items: center;
 }
+
+.div-daily-weather {
+    margin-top: 20px;
+    display: flex;
+}
+
+app-card-day-weather {
+    margin: 0 5px;
+}

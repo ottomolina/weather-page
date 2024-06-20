@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CardCurrentWeatherModule } from './components/card-current-weather/card-current-weather.module';
+import { CardDayWeatherModule } from './components/card-day-weather/card-day-weather.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CardCurrentWeatherModule } from './components/card-current-weather/card
     HeaderModule,
     NgxSpinnerModule,
     CardCurrentWeatherModule,
+    CardDayWeatherModule
   ],
   providers: [],
   bootstrap: [AppComponent]
