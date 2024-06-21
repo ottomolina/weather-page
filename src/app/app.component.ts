@@ -10,6 +10,12 @@ import { DailyWeather } from './models/daily-weather.model';
 const TRIGGER_BUSCAR = 750;
 const nameDays = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 
+interface LinkRange {
+  text: string;
+  active: boolean;
+  code: number;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,12 +32,15 @@ export class AppComponent {
   public dayOfWeek: string = '';
   public weather: Weather;
   public isLoading: boolean = true;
+  public linksRange: Array<LinkRange> = [];
 
   constructor(
     private locationService: LocationService,
     private sessionStorage: SessionstorageService,
     private spinner: NgxSpinnerService
   ) {
+    this.linksRange.push({ text: 'El tiempo 1 - 7 días', active: true, code: 0 });
+    this.linksRange.push({ text: '8 - 14 días', active: false, code: 7 });
     this.getCountryFromIp();
   }
 
@@ -80,7 +89,6 @@ export class AppComponent {
 
   public async selectResult(item:Place) {
     try {
-      this.listDailyWeather = [];
       this.isLoading = true;
       this.spinner.show();
       this.citySelected = item.name;
@@ -88,22 +96,7 @@ export class AppComponent {
       this.dayOfWeek = nameDays[new Date().getDay()];
       
       this.weather = await firstValueFrom(this.locationService.getWeatherByCoords(item.lat, item.lon));
-
-      const daily = this.weather.daily;
-      let i = 0;
-      while(i < 7) {
-        const item: DailyWeather = {
-          nameDay: this.getNameDay(daily.time[i]),
-          date: this.getDate(daily.time[i]),
-          precipitation_sum: daily.precipitation_sum[i],
-          precipitation_probability_max: daily.precipitation_probability_max[i],
-          weather_code: daily.weather_code[i],
-          temperature_2m_max: daily.temperature_2m_max[i],
-          temperature_2m_min: daily.temperature_2m_min[i]
-        };
-        this.listDailyWeather.push(item);
-        i++;
-      }
+      this.showRangeDaysWeather(0, 7);
 
     } catch(error) {
       console.error('error', error);
@@ -112,6 +105,34 @@ export class AppComponent {
       this.isLoading = false;
       this.spinner.hide();
     }
+  }
+
+  public showRangeDaysWeather(initial: number, final: number) {
+    this.listDailyWeather = [];
+    const daily = this.weather.daily;
+    let i = initial;
+    while(i < final) {
+      const item: DailyWeather = {
+        nameDay: this.getNameDay(daily.time[i]),
+        date: this.getDate(daily.time[i]),
+        precipitation_sum: daily.precipitation_sum[i],
+        precipitation_probability_max: daily.precipitation_probability_max[i],
+        weather_code: daily.weather_code[i],
+        temperature_2m_max: daily.temperature_2m_max[i],
+        temperature_2m_min: daily.temperature_2m_min[i]
+      };
+      this.listDailyWeather.push(item);
+      i++;
+    }
+  }
+
+  public clickRange(item: LinkRange) {
+    if(item.active) {
+      return;
+    }
+    this.linksRange.filter(e => e.active)[0].active = false;
+    item.active = true;
+    this.showRangeDaysWeather(item.code, (item.code+7));
   }
 
   private getHour() {
@@ -131,7 +152,7 @@ export class AppComponent {
     if(time === this.getCurrentDate(1)) {
       return 'Mañana';
     }
-    const date = new Date(new Date(time).toLocaleString('en-US',{timeZone:'America/Guatemala'}));
+    const date = new Date(new Date(`${time}T00:00:00`).toLocaleString('en-US',{timeZone:'America/Guatemala'}));
     return nameDays[date.getDay()];
   }
 

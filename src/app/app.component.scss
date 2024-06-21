@@ -13,3 +13,47 @@
 app-card-day-weather {
     margin: 0 5px;
 }
+
+.div-range-days {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    width: 810px;
+    text-align: center;
+}
+
+.text-range {
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    color: #0074AD;
+    white-space: nowrap;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.text-range:hover {
+    color: #A9CCE3;
+}
+
+.text-range::after {
+    content: '|';
+    color: rgba(197,204,208,0.6);
+    margin-left: 2px;
+    font-weight: 100;
+    margin: 0 5px;
+}
+
+.active {
+    color: #000000;
+    cursor: default;
+}
+
+.active:hover {
+    color: #000000;
+}
+
+.div-range-days span:last-child:after {
+    content: '';
+}

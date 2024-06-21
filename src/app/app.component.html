@@ -12,6 +12,15 @@
                               [hour]="hour">
     </app-card-current-weather>
 
+    <div class="div-range-days">
+      <span *ngFor="let item of linksRange"
+            class="text-range"
+            [ngClass]="{'active': item.active}"
+            (click)="clickRange(item)">
+          {{item.text}}
+      </span>
+    </div>
+
     <div class="div-daily-weather">
       <app-card-day-weather *ngFor="let item of listDailyWeather"
                             [dailyUnits]="weather.daily_units"
