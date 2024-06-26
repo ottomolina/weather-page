@@ -1,0 +1,53 @@
+
+.div-day-weather {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    padding: 15px;
+    align-items: center;
+    border-radius: 7px;
+    cursor: pointer;
+    img {
+        width: 80px;
+    }
+}
+
+.div-day-weather:hover {
+    background-color: rgba(0, 71, 102, 0.1);
+}
+
+.active, .active:hover {
+    background-color: rgba(0, 71, 102, 0.2);
+    cursor: default;
+}
+
+.text-day-name {
+    font-weight: bold;
+}
+
+.text-day-date {
+    color: #5F6A6A;
+}
+
+.text-blue-small {
+    color: #3498DB;
+    font-size: 10pt;
+}
+
+.text-percent-rain {
+    font-weight: 600;
+}
+
+.text-sum-rain {
+    margin-top: 5px;
+}
+
+.text-min-temperature {
+    color: #2980B9;
+    font-weight: bold;
+}
+
+.text-max-temperature {
+    color: #CB4335;
+    font-weight: bold;
+}

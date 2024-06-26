@@ -1,0 +1,112 @@
+
+.parent-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    background-color: #FFF;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: arial;
+    color: #2596be;
+    padding-left: 20px;
+}
+
+.title {
+    font-weight: 900;
+    font-size: 25px;
+}
+
+.note {
+    font-weight: 700;
+}
+
+.container-input {
+    display: flex;
+    flex-direction: row;
+    padding-left: 30px;
+    padding-top: 9px;
+}
+
+.input-search-place {
+    border-radius: 25px 0 0 25px;
+    border: 1px solid #ECEEEF;
+    padding: 0 1rem;
+    border-right: 0;
+    width: 100%;
+}
+
+.input-search-place:focus {
+    outline: unset;
+}
+
+.container-icon {
+    border-radius: 0 25px 25px 0;
+    border: 1px solid #ECEEEF;
+    border-left: 0;
+    padding: 5px;
+}
+
+.icon-search {
+    font-size: 30px;
+}
+
+.div-results {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+.item-result {
+    background-color: #fff;
+    overflow-y: auto;
+    z-index: 2;
+    position: absolute;
+    height: 300px;
+    margin-top: 5px;
+    border: 1px solid #eceeef;
+    border-radius: 6px;
+    width: 475px;
+    padding-left: 8px;
+    padding-top: 8px;
+    li {
+        list-style: none;
+        box-sizing: border-box;
+        position: relative;
+        padding: 10px 54px 10px 15px;
+        color: #666;
+        border-bottom: 1px solid #eceeef;
+        min-height: 47px;
+        width: 100%;
+        float: left;
+    }
+    li:hover {
+        background-color: lightgrey;
+    }
+}
+
+.result-invisible {
+    display: none;
+}
+
+.result-visible {
+    display: block;
+}
+
+.location-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    float: left;
+    margin-right: 6px;
+    background-repeat: no-repeat;
+    background-image: url(https://www.tiempo.com/js/bundle/3c1f495f10511f011bc2.svg);
+}

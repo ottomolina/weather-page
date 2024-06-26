@@ -1,0 +1,13 @@
+<div class="div-day-weather"
+     [ngClass]="{'active': dailyWeather.active}">
+    <p class="text-day-name">{{dailyWeather.nameDay}}</p>
+    <span class="text-day-date">{{dailyWeather.date}}</span>
+    <img src="{{dailyWeather.weather_code | weatherCodeIcon}}" title="{{dailyWeather.weather_code | weatherCode}}">
+    <span class="text-blue-small text-percent-rain">{{dailyWeather.precipitation_probability_max}}{{dailyUnits.precipitation_probability_max}}</span>
+    <span class="text-blue-small text-sum-rain">{{dailyWeather.precipitation_sum}}{{dailyUnits.precipitation_sum}}</span>
+    <p>
+        <span class="text-min-temperature">{{dailyWeather.temperature_2m_min | formatNumber}}°</span>
+        <span> / </span>
+        <span class="text-max-temperature">{{dailyWeather.temperature_2m_max | formatNumber}}°</span>
+    </p>
+</div>

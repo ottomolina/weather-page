@@ -1,0 +1,27 @@
+<tr class="item-hour">
+    <td class="text-hour">{{hourlyWeather.time}}</td>
+    <td class="container-weather">
+        <img src="{{hourlyWeather.weather_code | weatherCodeIcon: hourlyWeather.isDay}}" title="{{hourlyWeather.weather_code | weatherCode}}">
+        <div class="text-precipitation" 
+             [ngClass]="{'invisible': hourlyWeather.precipitation_probability === 0 || hourlyWeather.precipitation === 0}">
+            <span>{{hourlyWeather.precipitation_probability}}{{hourlyUnits.precipitation_probability}}</span>
+            <span>{{hourlyWeather.precipitation | formatNumber: 2}}{{hourlyUnits.precipitation}}</span>
+        </div>
+    </td>
+    <td class="row-temperature">
+        <span class="text-temperature">{{hourlyWeather.temperature_2m | formatNumber}}°</span>
+    </td>
+    <td class="text-weather-code">
+        <span class="text-weather-code">{{hourlyWeather.weather_code | weatherCode}}</span>
+        <span>Sensación T. {{hourlyWeather.apparent_temperature | formatNumber}}°</span>
+    </td>
+    
+    <td class="container-wind">
+        <i class='bx bxs-send {{hourlyWeather.wind_direction_10m | windDirectionIcon}}'></i>
+        <div class="container-wind-info">
+            <span class="text-direction-wind">{{hourlyWeather.wind_direction_10m | windDirection }}</span>
+            <span>{{hourlyWeather.wind_speed_10m | formatNumber}} - {{hourlyWeather.wind_gusts_10m | formatNumber}} {{hourlyUnits.wind_speed_10m}}</span>
+        </div>
+    </td>
+
+</tr>
