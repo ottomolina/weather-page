@@ -1,4 +1,5 @@
-<div class="div-day-weather">
+<div class="div-day-weather"
+     [ngClass]="{'active': dailyWeather.active}">
     <p class="text-day-name">{{dailyWeather.nameDay}}</p>
     <span class="text-day-date">{{dailyWeather.date}}</span>
     <img src="{{dailyWeather.weather_code | weatherCodeIcon}}" title="{{dailyWeather.weather_code | weatherCode}}">

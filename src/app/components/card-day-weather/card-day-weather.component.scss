@@ -6,10 +6,19 @@
     padding: 15px;
     align-items: center;
     border-radius: 7px;
-
+    cursor: pointer;
     img {
         width: 80px;
     }
+}
+
+.div-day-weather:hover {
+    background-color: rgba(0, 71, 102, 0.1);
+}
+
+.active, .active:hover {
+    background-color: rgba(0, 71, 102, 0.2);
+    cursor: default;
 }
 
 .text-day-name {
