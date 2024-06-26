@@ -41,7 +41,12 @@ export interface Current {
 export interface HourlyUnits {
   time: string
   temperature_2m: string
+  apparent_temperature: string
+  wind_speed_10m: string
+  wind_gusts_10m: string
+  wind_direction_10m: string
   relative_humidity_2m: string
+  precipitation: string
   precipitation_probability: string
   weather_code: string
 }
@@ -49,13 +54,20 @@ export interface HourlyUnits {
 export interface Hourly {
   time: string[]
   temperature_2m: number[]
+  apparent_temperature: number[]
+  wind_speed_10m: number[]
+  wind_gusts_10m: number[]
+  wind_direction_10m: number[]
   relative_humidity_2m: number[]
+  precipitation: number[]
   precipitation_probability: number[]
   weather_code: number[]
 }
 
 export interface DailyUnits {
   time: string
+  sunrise: string
+  sunset: string
   precipitation_sum: string
   precipitation_probability_max: string
   weather_code: string
@@ -65,6 +77,8 @@ export interface DailyUnits {
 
 export interface Daily {
   time: string[]
+  sunrise: string[]
+  sunset: string[]
   precipitation_sum: number[]
   precipitation_probability_max: number[]
   weather_code: number[]

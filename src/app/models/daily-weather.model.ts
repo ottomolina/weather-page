@@ -7,4 +7,8 @@ export class DailyWeather {
     weather_code: number;
     temperature_2m_max: number;
     temperature_2m_min: number;
+    active: boolean;
+    time: string;
+    sunrise: string;
+    sunset: string;
 }
