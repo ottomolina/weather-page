@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CardCurrentWeatherModule } from './components/card-current-weather/card-current-weather.module';
 import { CardDayWeatherModule } from './components/card-day-weather/card-day-weather.module';
+import { ItemHourWeatherModule } from './components/item-hour-weather/item-hour-weather.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CardDayWeatherModule } from './components/card-day-weather/card-day-wea
     HeaderModule,
     NgxSpinnerModule,
     CardCurrentWeatherModule,
-    CardDayWeatherModule
+    CardDayWeatherModule,
+    ItemHourWeatherModule
   ],
   providers: [],
   bootstrap: [AppComponent]

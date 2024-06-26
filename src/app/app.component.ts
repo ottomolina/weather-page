@@ -6,6 +6,7 @@ import { Place } from './models/place.model';
 import { Weather } from './models/weater.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DailyWeather } from './models/daily-weather.model';
+import { HourlyWeather } from './models/hourly-weather.model';
 
 const TRIGGER_BUSCAR = 750;
 const nameDays = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
@@ -25,6 +26,7 @@ export class AppComponent {
   private refTimeout: any;
   public listPlaces: Array<Place> = [];
   public listDailyWeather: Array<DailyWeather> = [];
+  public listHourlyWeather: Array<HourlyWeather> = [];
 
   // Variables for div-current-weather
   public citySelected: string = '';
@@ -33,6 +35,11 @@ export class AppComponent {
   public weather: Weather;
   public isLoading: boolean = true;
   public linksRange: Array<LinkRange> = [];
+
+  public nameDaySelected: string = '';
+  public dateSelected: string = '';
+  public hidePrev: boolean = true;
+  public hideNext: boolean = false;
 
   constructor(
     private locationService: LocationService,
@@ -96,6 +103,7 @@ export class AppComponent {
       this.dayOfWeek = nameDays[new Date().getDay()];
       
       this.weather = await firstValueFrom(this.locationService.getWeatherByCoords(item.lat, item.lon));
+      // this.mapHourlyWeather.clear();
       this.showRangeDaysWeather(0, 7);
 
     } catch(error) {
@@ -108,6 +116,8 @@ export class AppComponent {
   }
 
   public showRangeDaysWeather(initial: number, final: number) {
+    this.hidePrev = initial === 0;
+    this.hideNext = initial !== 0;
     this.listDailyWeather = [];
     const daily = this.weather.daily;
     let i = initial;
@@ -119,11 +129,16 @@ export class AppComponent {
         precipitation_probability_max: daily.precipitation_probability_max[i],
         weather_code: daily.weather_code[i],
         temperature_2m_max: daily.temperature_2m_max[i],
-        temperature_2m_min: daily.temperature_2m_min[i]
+        temperature_2m_min: daily.temperature_2m_min[i],
+        active: i === initial,
+        time: daily.time[i],
+        sunrise: daily.sunrise[i],
+        sunset: daily.sunset[i],
       };
       this.listDailyWeather.push(item);
       i++;
     }
+    this.clickDay(this.listDailyWeather[0]);
   }
 
   public clickRange(item: LinkRange) {
@@ -133,6 +148,11 @@ export class AppComponent {
     this.linksRange.filter(e => e.active)[0].active = false;
     item.active = true;
     this.showRangeDaysWeather(item.code, (item.code+7));
+  }
+
+  public clickButtonPrevNext(index:number) {
+    const item = this.linksRange[index];
+    this.clickRange(item);
   }
 
   private getHour() {
@@ -145,7 +165,7 @@ export class AppComponent {
     return ret;
   }
 
-  private getNameDay(time: string) {
+  public getNameDay(time: string) {
     if(time === this.getCurrentDate()) {
       return 'Hoy';
     }
@@ -170,4 +190,43 @@ export class AppComponent {
     const year = `${date.getFullYear()}`;
     return `${year}-${month}-${day}`;
   }
+
+  public clickDay(itemSelected: DailyWeather) {
+    this.listDailyWeather.forEach(e => e.active = false);
+    itemSelected.active = true;
+    
+    const date = itemSelected.time;
+    this.nameDaySelected = this.getNameDay(date);
+    const dateTemp = new Date(`${date}T00:00:00`);
+    const day = dateTemp.getDate();
+    const month = dateTemp.toLocaleString('default', { month: 'long' });
+    this.dateSelected = `${day} de ${month}`
+    this.listHourlyWeather = [];
+    
+    const final = this.weather.hourly.time.length;
+    let i = 0;
+    while(i < final) {
+      const { time, temperature_2m, apparent_temperature, wind_speed_10m, wind_gusts_10m, relative_humidity_2m,
+        wind_direction_10m, precipitation, precipitation_probability, weather_code } = this.weather.hourly;
+      const timeElement = time[i].split('T');
+      if(timeElement[0] === date) {
+        const item: HourlyWeather = {
+          time: timeElement[1],
+          temperature_2m: temperature_2m[i],
+          apparent_temperature: apparent_temperature[i],
+          wind_speed_10m: wind_speed_10m[i],
+          wind_gusts_10m: wind_gusts_10m[i],
+          wind_direction_10m: wind_direction_10m[i],
+          relative_humidity_2m: relative_humidity_2m[i],
+          precipitation: precipitation[i],
+          precipitation_probability: precipitation_probability[i],
+          weather_code: weather_code[i],
+          isDay: new Date(time[i]) > new Date(itemSelected.sunrise) && new Date(time[i]) < new Date(itemSelected.sunset) ? 1 : 0
+        }
+        this.listHourlyWeather.push(item);
+      }
+      i++;
+    }
+  }
+
 }

@@ -22,10 +22,29 @@
     </div>
 
     <div class="div-daily-weather">
+      <div class="prev" [ngClass]="{'hide-button': hidePrev}">
+        <span class="button-prev" (click)="clickButtonPrevNext(0)">
+          <i class='bx bx-chevron-left'></i>
+        </span>
+      </div>
       <app-card-day-weather *ngFor="let item of listDailyWeather"
                             [dailyUnits]="weather.daily_units"
-                            [dailyWeather]="item">
+                            [dailyWeather]="item"
+                            (click)="clickDay(item)">
       </app-card-day-weather>
+      <div class="next" [ngClass]="{'hide-button': hideNext}">
+        <span class="button-next" (click)="clickButtonPrevNext(1)">
+          <i class='bx bx-chevron-right'></i>
+        </span>
+      </div>
+    </div>
+
+    <div class="div-hour-weather">
+      <h2>El tiempo en {{citySelected}} {{nameDaySelected}}, {{dateSelected}}</h2>
+      <app-item-hour-weather *ngFor="let item of listHourlyWeather"
+                             [hourlyUnits]="weather.hourly_units"
+                             [hourlyWeather]="item">
+      </app-item-hour-weather>
     </div>
 </div>
 
