@@ -1,27 +1,41 @@
-# WebWeather
+# Web Weather
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+This is a web page that shows a weather from a place previously searched.
 
-## Development server
+## Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+If you don't installed [Angular](https://angular.dev/tools/cli/setup-local), you need to run the following command in order to install it:
 
-## Code scaffolding
+```bash
+npm install -g @angular/cli
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+If you installed git you can clone the code to your machine.
 
-## Build
+- Run the following [git](https://git-scm.com/downloads) command to clone the files to your machine:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+git clone https://github.com/ottomolina/weather-page.git
+```
 
-## Running unit tests
+- Once the files are on your machine, open the weather-page in [Visual Studio Code](https://code.visualstudio.com/).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- With the files open in Visual Studio Code, you can run the application in development mode running the following [Angular](https://angular.dev) command:
 
-## Running end-to-end tests
+```bash
+ng serve --open
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Resources
 
-## Further help
+- [Angular](https://angular.dev)
+- [HTML](https://developer.mozilla.org/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/docs/Web/CSS)
+- [Typescript](https://www.typescriptlang.org)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Tools
+
+The following tools help make easier to work with sample code.
+
+- [Git](https://git-scm.com/downloads): This tool helps for managing source code
+- [Visual Studio Code](https://code.visualstudio.com/): A source code editor
