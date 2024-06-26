@@ -1,0 +1,98 @@
+.item-hour {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-bottom: 1px solid #ECEEEF;
+}
+
+.text-hour {
+    font-weight: bold;
+    width: 70px;
+}
+
+.item-hour img {
+    width: 80px;
+}
+
+.text-precipitation {
+    display: flex;
+    flex-direction: column;
+    color: #3498DB;
+    padding-left: 10px;
+    font-size: 10pt;
+}
+
+.text-temperature {
+    font-weight: bold;
+    font-size: 20pt;
+}
+
+.container-wind, .container-weather {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.container-wind {
+    width: 170px;
+}
+
+.container-weather {
+    width: 150px;
+}
+
+.row-temperature {
+    width: 70px;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.text-weather-code, .container-wind-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-weather-code {
+    width: 200px;
+}
+
+.container-wind-info {
+    padding-left: 10px;
+}
+
+.text-direction-wind {
+    font-weight: bold;
+}
+
+.bx {
+    font-size: 35px;
+}
+
+.wind-north {
+    rotate: 90deg;
+}
+.wind-northeast {
+    rotate: 135deg;
+}
+.wind-east {
+    rotate: 180deg;
+}
+.wind-southeast {
+    rotate: 225deg;
+}
+.wind-south {
+    rotate: 270deg;
+}
+.wind-southwest {
+    rotate: 315deg;
+}
+.wind-west {
+    rotate: 0deg;
+}
+.wind-northwest {
+    rotate: 45deg;
+}
