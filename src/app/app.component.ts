@@ -60,7 +60,7 @@ export class AppComponent {
       this.sessionStorage.countryIpAddressExternal = countryObject.country;
 
       await this.searchingProcess(countryObject.country);
-      const place = this.listPlaces.find(e => e.name === countryObject.country);
+      const place = this.listPlaces[0];
       place && await this.selectResult(place);
       
     } catch(error) {
